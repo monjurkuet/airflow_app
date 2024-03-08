@@ -1,0 +1,20 @@
+version: '3'
+services:
+  webserver:
+    image: airflow_image_monjur
+    container_name: air_flow_container_monjur
+    volumes:
+      - ./dags:/opt/airflow_app/dags
+      - ./output:/opt/airflow_app/output
+
+    environment:
+      - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow_app/dags
+      - AIRFLOW__WEBSERVER__SHOW_TRIGGER_FORM_IF_NO_PARAMS=True
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: ["bash", "-c", "airflow db init && airflow users create --username admin --password admin --firstname admin --lastname admin --role Admin --email admin@example.com && airflow standalone"]
