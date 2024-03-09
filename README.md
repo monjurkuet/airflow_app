@@ -123,7 +123,5 @@
 > $ docker-compose up -d
 > ```
 
-###  Demo
 
-<h4>From <code>source</code></h4>
 
