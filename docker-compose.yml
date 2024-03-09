@@ -2,7 +2,7 @@ version: '3'
 services:
   webserver:
     image: airflow_image_monjur
-    container_name: air_flow_container_monjur
+    container_name: airflow_container_monjur
     volumes:
       - ./dags:/opt/airflow_app/dags
       - ./output:/opt/airflow_app/output

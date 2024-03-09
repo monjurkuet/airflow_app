@@ -83,7 +83,7 @@ dag = DAG(
     'scrape_nhl_data',
     default_args=default_args,
     description='Scrape NHL data from scrapethissite.com',
-    schedule_interval=timedelta(days=1),
+    schedule_interval='0 0 * * 0',
 )
 
 # Define the number of pages to scrape

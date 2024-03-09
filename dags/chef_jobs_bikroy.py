@@ -5,6 +5,7 @@ from selenium import webdriver
 import pandas as pd
 import time
 from pymongo import MongoClient
+from conflict_resolution import resolve_conflict
 
 # MongoDB connection URL
 mongo_url = 'mongodb://host.docker.internal:27017/'
@@ -25,7 +26,7 @@ default_args = {
 dag = DAG(
     'chef_jobs_bikroy',
     default_args=default_args,
-    schedule_interval='@monthly',  # Set your desired schedule
+    schedule_interval='0 0 1 * *',  # Set your desired schedule
     catchup=False,
 )
 
@@ -135,8 +136,16 @@ save_mongodb_task = PythonOperator(
     dag=dag,
 )
 
+# Conflict resolution task
+resolve_conflict_task = PythonOperator(
+    task_id='resolve_conflict',
+    python_callable=resolve_conflict,
+    provide_context=True,
+    dag=dag,
+)
+
 # Set task dependencies
-navigate_task >> save_task >> save_mongodb_task
+resolve_conflict_task >> navigate_task >> save_task >> save_mongodb_task
 
 if __name__ == "__main__":
     dag.cli()

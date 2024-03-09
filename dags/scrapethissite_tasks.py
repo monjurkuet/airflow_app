@@ -25,7 +25,7 @@ default_args = {
 dag = DAG(
     'scrapethissite_tasks',
     default_args=default_args,
-    schedule_interval='@daily',  # Set the schedule interval based on your requirements
+    schedule_interval='0 0 * * 0',  # Set the schedule interval based on your requirements
 )
 
 ##### first task

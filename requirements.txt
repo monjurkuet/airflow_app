@@ -1,4 +1,4 @@
-pandas
-bs4
-selenium
-pymongo
+pandas==2.2.1
+bs4==4.12.2
+selenium==4.12.0
+pymongo==4.5.0
